@@ -71,7 +71,11 @@ main(void)
     st = get_status();                      /* battery status (charging/discharging/full/etc) */
 
     if (st == D && bat < THRESHOLD) {
-      snprintf(stat, STR, "LOW BATTERY: suspending after %d ", TIMEOUT - timer);
+        if((timer  % 2) == 0) {
+            snprintf(stat, STR, "LOW BATTERY: suspending after %d ", TIMEOUT - timer);
+        } else {
+            snprintf(stat, STR, "           : suspending after %d ", TIMEOUT - timer);
+        }
       set_status(stat);
       if (timer >= TIMEOUT) {
 #ifndef DEBUG
